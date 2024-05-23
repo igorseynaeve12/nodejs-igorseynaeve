@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const parking = require('../models/parkingModel');
 const mongoose = require('mongoose');
+const auth = require('../middleware/auth');
 const Joi = require('joi');
 
 router.use(express.json());
@@ -43,7 +44,7 @@ async function getParkings() {
 
 
 //1
-router.get('/parkings', async (req, res) => {
+router.get('/', async (req, res) => {
     try{
         res.status(200).json((await getParkings()).parkings);
     } catch(err){
@@ -52,7 +53,7 @@ router.get('/parkings', async (req, res) => {
 })
 
 //2
-router.get('/parkings/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try{
         const parkings = (await getParkings()).parkings;
 
@@ -69,7 +70,7 @@ router.get('/parkings/:id', async (req, res) => {
 })
 
 //3
-router.post('/parkings', async (req, res) => {
+router.post('/', async (req, res) => {
     const schema = Joi.object({
         name: Joi.string().required(),
         stad: Joi.string().required(),
@@ -103,7 +104,7 @@ router.post('/parkings', async (req, res) => {
 });
 
 //4
-router.put('/parkings/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     const schema = Joi.object({
         name: Joi.string().required(),
         stad: Joi.string().required(),
@@ -131,7 +132,7 @@ router.put('/parkings/:id', async (req, res) => {
 })
 
 //5
-router.delete('/parkings/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try{
         const result = await deleteParking(req.params.id);
         res.send(result);
@@ -141,7 +142,7 @@ router.delete('/parkings/:id', async (req, res) => {
 })
 
 //6
-router.get('/parkings/stad/:stad', async (req, res) => {
+router.get('/stad/:stad', async (req, res) => {
     try{
         const parkings = (await getParkings()).parkings;
 

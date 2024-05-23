@@ -2,6 +2,7 @@ const {users, validate} = require('../models/userModel');
 const mongoose = require('mongoose');
 const Joi = require('joi');
 const express = require('express');
+const auth = require('../middleware/auth');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
@@ -22,15 +23,20 @@ router.post('/', async (req, res) => {
 
     user = new users(_.pick(req.body, ['name', 'email', 'password']));
 
+    console.log(user.password);
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
+
+    console.log(user.password);
+
+
 
     await user.save();
     res.send(_.pick(user, ['_id', 'name', 'email']));
 })
 
-router.get('/me', async (req, res) => {
+router.get('/me', auth ,async (req, res) => {
     const user = await users.findById(req.user._id).select('-password');
     res.send(user);
 })
