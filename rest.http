@@ -1,0 +1,86 @@
+get http://localhost:4500/
+###
+get http://localhost:4500/api/parkings
+###
+get http://localhost:4500/api/parkings/664e09fce71633614b2fdb62
+###
+post http://localhost:4500/api/parkings
+Content-Type: application/json
+
+{
+    "name": "Noord",
+    "stad": "664e09492b7e121079a60cf7",
+    "plaatsen": 750
+}
+
+###
+put http://localhost:4500/api/parkings/664f5485b9d041425c7d3112
+Content-Type: application/json
+
+{
+    "name": "Noord Parking",
+    "stad": "664e09492b7e121079a60cf7",
+    "plaatsen": 750
+}
+
+
+###
+delete http://localhost:4500/api/parkings/664f5485b9d041425c7d3112
+
+
+###
+get http://localhost:4500/api/parkings/getAllParkingsByStad/664e090c2b7e121079a60cf3
+
+###
+get http://localhost:4500/api/steden
+
+###
+get http://localhost:4500/api/steden/664e097b2b7e121079a60cff
+
+###
+post http://localhost:4500/api/steden
+Content-Type: application/json
+
+{
+    "name": "Ledegem",
+    "postcode": 8065
+}
+
+###
+put http://localhost:4500/api/steden/664f5637e5bf5d0522fc8aad
+Content-Type: application/json
+
+{
+    "name": "Dublin",
+    "postcode": 108765
+}
+###
+delete http://localhost:4500/api/steden/664f5637e5bf5d0522fc8aad
+
+###
+get http://localhost:4500/api/registrations
+
+###
+
+get http://localhost:4500/api/registrations/getRegistrationByParkingId/664e09fce71633614b2fdb62
+
+###
+post http://localhost:4500/api/registrations
+Content-Type: application/json
+
+{
+    "nummerplaat": "2-DKH-877",
+    "parking": "664e09fce71633614b2fdb62"
+}
+###
+put http://localhost:4500/api/registrations/664f58f1e5bf5d0522fc8ab8
+Content-Type: application/json
+
+{
+    "nummerplaat": "2-DKF-877",
+    "parking": "664e09fce71633614b2fdb62"
+}
+
+###
+delete http://localhost:4500/api/registrations/664f58f1e5bf5d0522fc8ab8
+

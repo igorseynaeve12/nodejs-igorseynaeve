@@ -36,8 +36,7 @@ mongoose.connect('mongodb://localhost/opdrachtNode')
 .then(()=> console.log('Verbonden met MongoDB'))
 .catch(err => console.error('Kan niet verbinden met DB ...', err))
 
-console.log('App: ' + config.get('name'))
-console.log('App host: ' + config.get('mail.host'))
+console.log('Api beschikbaar op: ' + 'http://localhost:' + port)
 
 
 app.listen(port, ()=> console.log('Listening on port ' + port ))
