@@ -42,7 +42,7 @@ async function getParkings() {
 }
 
 
-
+//1
 router.get('/parkings', async (req, res) => {
     try{
         res.status(200).json((await getParkings()).parkings);
@@ -51,14 +51,14 @@ router.get('/parkings', async (req, res) => {
     }
 })
 
-
+//2
 router.get('/parkings/:id', async (req, res) => {
     try{
         const parkings = (await getParkings()).parkings;
 
 
 
-        const parkingById = games.find(parking => parking._id.toString() === req.params.id);
+        const parkingById = parkings.find(parking => parking._id.toString() === req.params.id);
 
         if(!parkingById) return res.status(404).json({error: 'Parking not found'});
 
@@ -68,6 +68,7 @@ router.get('/parkings/:id', async (req, res) => {
     }
 })
 
+//3
 router.post('/parkings', async (req, res) => {
     const schema = Joi.object({
         name: Joi.string().required(),
@@ -101,6 +102,7 @@ router.post('/parkings', async (req, res) => {
     }
 });
 
+//4
 router.put('/parkings/:id', async (req, res) => {
     const schema = Joi.object({
         name: Joi.string().required(),
@@ -128,11 +130,28 @@ router.put('/parkings/:id', async (req, res) => {
     }
 })
 
-
+//5
 router.delete('/parkings/:id', async (req, res) => {
     try{
         const result = await deleteParking(req.params.id);
         res.send(result);
+    } catch(err){
+        res.status(500).json({error: err.message});
+    }
+})
+
+//6
+router.get('/parkings/stad/:stad', async (req, res) => {
+    try{
+        const parkings = (await getParkings()).parkings;
+
+        const parkingByStad = parkings.filter(parking => parking.stad === req.params.stad); 
+        
+        if(!parkingByStad) return res.status(404).json({error: "Parkings not found"});
+
+        console.log(parkingByStad);
+        res.send(parkingByStad.entries);
+
     } catch(err){
         res.status(500).json({error: err.message});
     }

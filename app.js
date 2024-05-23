@@ -11,12 +11,16 @@ const config = require('config');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const parking = require('./routes/parkings');
+const user = require('./routes/users');
+const steden = require('./routes/steden');
 const fs = require('fs');
 const port = process.env.PORT || 4500;
 
 
 
 app.use('/api', parking);
+app.use('/api', user);
+app.use('/api', steden);
 app.use(helmet());
 
 // Database
