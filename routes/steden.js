@@ -22,7 +22,7 @@ async function getSteden() {
     }
 }
 
-//9
+//10
 router.get('/steden', async (req, res) => {
     try{
         res.status(200).json((await getSteden()).stad);
@@ -32,7 +32,7 @@ router.get('/steden', async (req, res) => {
 })
 
 
-//10
+//11
 router.post('/steden', async (req, res) => {
     const schema = joi.object({
         name: joi.string().required(),
@@ -58,7 +58,7 @@ router.post('/steden', async (req, res) => {
 
 })
 
-//11
+//12
 router.get('/steden/:id', async (req, res) => {
     try{
         const stad = await steden.findById(req.params.id);
@@ -68,7 +68,7 @@ router.get('/steden/:id', async (req, res) => {
     }
 })
 
-//12
+//13
 router.put('/steden/:id', async (req, res) => {
     const schema = joi.object({
         name: joi.string().required(),
@@ -93,7 +93,7 @@ router.put('/steden/:id', async (req, res) => {
     }
 })
 
-//13
+//14
 router.delete('/steden/:id', async (req, res) => {
     try{
         const result = await deleteStad(req.params.id);

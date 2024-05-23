@@ -15,6 +15,7 @@ const user = require('./routes/users');
 const steden = require('./routes/steden');
 const index = require('./routes/index');
 const auth = require('./routes/auth');
+const registration = require('./routes/registration');
 const fs = require('fs');
 const port = process.env.PORT || 4500;
 
@@ -25,6 +26,8 @@ app.use('/api/parkings', parking);
 app.use('/api/users', user);
 app.use('/api/auth', auth);
 app.use('/api/steden', steden);
+app.use('/api/registrations', registration);
+
 app.use(helmet());
 
 // Database

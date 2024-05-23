@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
     await user.save();
     res.send(_.pick(user, ['_id', 'name', 'email']));
 })
-
+//8
 router.get('/me', auth ,async (req, res) => {
     const user = await users.findById(req.user._id).select('-password');
     res.send(user);
