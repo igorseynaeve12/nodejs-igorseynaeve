@@ -30,10 +30,10 @@ router.post('/', async (req, res) => {
     res.send(_.pick(user, ['_id', 'name', 'email']));
 })
 
-router.get('/me', async (req, res)) => {
+router.get('/me', async (req, res) => {
     const user = await users.findById(req.user._id).select('-password');
     res.send(user);
-}
+})
 
 
 module.exports = router;

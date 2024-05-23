@@ -10,29 +10,30 @@ const jwt = require('jsonwebtoken');
 
 
 //8
-router.post('/login', async (req, res) => {
-    const result = joi.object({
+router.post('/', async (req, res) => {
+
+
+    const {error} = validate(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+
+    let user = await users.findOne({email: req.body.email});
+    if(!user) return res.status(400).send('Invalid email or password.');
+
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    if(!validPassword) return res.status(400).send('Invalid email or password.');
+
+    const token = user.generateAuthToken();
+
+    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
+})
+
+function validate(req){
+    const schema = {
         email: joi.string().min(5).max(255).required().email(),
         password: joi.string().min(5).max(255).required()
-    })
-    if (result.error) return res.status(400).send(result.error.details[0].message);
-
-
-    users = await users.findOne({ email: req.body.email });
-
-    if(users){
-        return res.status(404).send('User already exists');
     }
-    const validPassword = await bcrypt.compare(req.body.password, users.password);
-    if(!validPassword) return res.status(400).send('Invalid password');
-
-    console.log(config.get('jwtPrivateKey'));
-
-    const token = jwt.sign({_id: users._id}, config.get('jwtPrivateKey'));
-    res.header('x-auth-token', token).send(_.pick(users, ['_id', 'name', 'email']));
-
-    res.send(true);
-})
+    return schema.validate(req);
+}
 
 
 module.exports = router;

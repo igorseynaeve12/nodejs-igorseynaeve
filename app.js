@@ -14,14 +14,16 @@ const parking = require('./routes/parkings');
 const user = require('./routes/users');
 const steden = require('./routes/steden');
 const index = require('./routes/index');
+const auth = require('./routes/auth');
 const fs = require('fs');
 const port = process.env.PORT || 4500;
 
 
 app.use('/', index);
-app.use('/api', parking);
-app.use('/api', user);
-app.use('/api', steden);
+app.use('/api/parkings', parking);
+app.use('/api/users', user);
+app.use('/api/auth', auth);
+app.use('/api/steden', steden);
 app.use(helmet());
 
 // Database
