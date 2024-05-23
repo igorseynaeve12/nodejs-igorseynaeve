@@ -83,7 +83,7 @@ router.post('/', async (req, res) => {
         return res.status(400).json({error: result.error.details[0].message});
     }
 
-    const findByName = await parking.findOne({name: req.body.name});
+    const findByName = await parking.findOne({name: req.body.name, stad: req.body.stad});
 
     if(findByName){
         return res.status(400).json({error: 'Parking already exists'});
