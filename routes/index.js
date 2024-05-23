@@ -5,8 +5,14 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 
+router.use(express.json());
+router.use(express.urlencoded({extended: true}));
+
 
 
 router.get('/', async (req, res) => {
-    res.status(200).json({message: 'Hello World'});
+    res.status(200).json({message: 'Welkom op deze Api-pagina van Igor Seynaeve'});
 })
+
+
+module.exports = router;

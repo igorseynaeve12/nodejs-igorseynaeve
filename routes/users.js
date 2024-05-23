@@ -1,4 +1,4 @@
-const users = require('../models/userModel');
+const {users, validate} = require('../models/userModel');
 const mongoose = require('mongoose');
 const Joi = require('joi');
 const express = require('express');
@@ -11,43 +11,29 @@ router.use(express.urlencoded({extended: true}));
 
 
 //7
-router.post('/register', async (req, res) => {
-    try{
-        const schema = Joi.object({
-            name: Joi.string().min(3).required(),
-            email: Joi.string().min(3).required().email(),
-            password: Joi.string().min(3).required()
-        })
-        const {error} = schema.validate(req.body);
-        if(error) return res.status(400).send(error.details[0].message);
-
-        let user = await users.findOne({email: req.body.email});
-        if(user) return res.status(400).send('User already exists');
+router.post('/', async (req, res) => {
 
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const {error} = validate(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+
+    let user = await users.findOne({email: req.body.email});
+    if(user) return res.status(400).send('User already exists');
+
+    user = new users(_.pick(req.body, ['name', 'email', 'password']));
 
 
-        gebruiker = new users({
-            name: req.body.name,
-            email: req.body.email,
-            password:  hashedPassword
-        })
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
 
-        try{
-            await gebruiker.save();
-            const token = gebruiker.generateAuthToken();
-            res.header('x-auth-token', token).send(_.pick(users, ['_id', 'name', 'email']));
-        } catch(err){
-            res.status(500).send(err.message);
-        }
-        
-        
-    } catch(err){
-        return res.status(500).send(err.message);
-    }
+    await user.save();
+    res.send(_.pick(user, ['_id', 'name', 'email']));
 })
+
+router.get('/me', async (req, res)) => {
+    const user = await users.findById(req.user._id).select('-password');
+    res.send(user);
+}
 
 
 module.exports = router;
