@@ -142,18 +142,11 @@ router.delete('/:id', async (req, res) => {
 })
 
 //6
-router.get('/stad/:stad', async (req, res) => {
+router.get('/getAllParkingsByStad/:stadId', async (req, res) => {
     try{
-        const parkings = (await getParkings()).parkings;
-
-        const parkingByStad = parkings.filter(parking => parking.stad === req.params.stad); 
-        
-        if(!parkingByStad) return res.status(404).json({error: "Parkings not found"});
-
-        console.log(parkingByStad);
-        res.send(parkingByStad.entries);
-
-    } catch(err){
+        const result = await parking.find({stad: req.params.stadId});
+        res.send(result);
+    } catch (err){
         res.status(500).json({error: err.message});
     }
 })

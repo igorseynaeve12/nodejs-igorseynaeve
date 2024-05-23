@@ -5,7 +5,6 @@ const {Registration} = require('../models/registrationModel');
 const joi = require('joi');
 
 router.use(express.json());
-
 router.use(express.urlencoded({extended: true}));
 
 
