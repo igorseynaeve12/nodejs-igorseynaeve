@@ -9,8 +9,13 @@ router.use(express.json());
 router.use(express.urlencoded({extended: true}));
 
 async function deleteStad(id){
-    const stad = await steden.findByIdAndDelete(id);
-    return stad;
+    try{
+        const stad = await steden.findByIdAndDelete(id);
+        return stad;
+    } catch(err){
+        console.log(err);
+    }
+    
 }
 
 async function getSteden() {
@@ -34,20 +39,19 @@ router.get('/', async (req, res) => {
 
 //11
 router.post('/', async (req, res) => {
-    const schema = joi.object({
-        name: joi.string().required(),
-        postcode: joi.number().required(),
-    })
-
-    const {error} = schema.validate(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
-
-    const stad = new steden({
-        name: req.body.name,
-        postcode: req.body.postcode,
-    })
-
     try{
+        const schema = joi.object({
+            name: joi.string().required(),
+            postcode: joi.number().required(),
+        })
+    
+        const {error} = schema.validate(req.body);
+        if(error) return res.status(400).send(error.details[0].message);
+    
+        const stad = new steden({
+            name: req.body.name,
+            postcode: req.body.postcode,
+        })
         await stad.save();
         res.status(200).json(stad);
     } catch(err){
@@ -81,10 +85,6 @@ router.put('/:id', async (req, res) => {
         }, {
         new: true
     });
-    } catch(err){
-        res.status(500).json(err);
-    }
-    try{
         res.status(200).json(stad);
     } catch(err){
         res.status(500).json(err);
