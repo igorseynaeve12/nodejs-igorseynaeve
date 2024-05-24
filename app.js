@@ -5,7 +5,7 @@ const app = express();
 
 
 
-
+const dotenv = require('dotenv');
 
 const config = require('config');
 const helmet = require('helmet');
@@ -18,6 +18,7 @@ const index = require('./routes/index');
 const auth = require('./routes/auth');
 const registration = require('./routes/registration');
 
+dotenv.config();
 
 
 const fs = require('fs');

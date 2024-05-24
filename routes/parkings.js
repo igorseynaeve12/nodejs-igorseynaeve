@@ -56,13 +56,8 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try{
         const parkings = (await getParkings()).parkings;
-
-
-
         const parkingById = parkings.find(parking => parking._id.toString() === req.params.id);
-
         if(!parkingById) return res.status(404).json({error: 'Parking not found'});
-
         res.send(parkingById);
     } catch(err){
         res.status(500).json({error: err.message});
@@ -77,23 +72,26 @@ router.post('/', async (req, res) => {
         plaatsen: Joi.number().required()
     })
 
-
-    const result = schema.validate(req.body);
-    if(result.error){
-        return res.status(400).json({error: result.error.details[0].message});
+    try{
+        const result = schema.validate(req.body);
+        if(result.error){
+            return res.status(400).json({error: result.error.details[0].message});
+        }
+    
+        const findByName = await parking.findOne({name: req.body.name, stad: req.body.stad});
+    
+        if(findByName){
+            return res.status(400).json({error: 'Parking already exists'});
+        }
+        const parkeer = new parking({
+            name: req.body.name,
+            stad: req.body.stad,
+            plaatsen: req.body.plaatsen
+        })
+    } catch (err){
+        res.status(500).json({error: err.message});
     }
-
-    const findByName = await parking.findOne({name: req.body.name, stad: req.body.stad});
-
-    if(findByName){
-        return res.status(400).json({error: 'Parking already exists'});
-    }
-
-    const parkeer = new parking({
-        name: req.body.name,
-        stad: req.body.stad,
-        plaatsen: req.body.plaatsen
-    })
+    
 
     try{
         const result = await parkeer.save();
@@ -105,28 +103,21 @@ router.post('/', async (req, res) => {
 
 //4
 router.put('/:id', async (req, res) => {
-    const schema = Joi.object({
-        name: Joi.string().required(),
-        stad: Joi.string().required(),
-        plaatsen: Joi.number().required()
-    })
-
-    const parkeerplaats = await parking.findById(req.params.id);
-
-    const result = schema.validate(req.body);
-
-    if(result.error){
-        return res.status(400).json({error: result.error.details[0].message});
-    }
-
-    parkeerplaats.name = req.body.name;
-    parkeerplaats.stad = req.body.stad;
-    parkeerplaats.plaatsen = req.body.plaatsen;
-
     try{
-        const result = await parkeerplaats.save();
+        const schema = Joi.object({
+            name: Joi.string().required(),
+            stad: Joi.string().required(),
+            plaatsen: Joi.number().required()
+        })
+    
+        const error = schema.validate(req.body);
+        if(error.error){
+            return res.status(400).json({error: result.error.details[0].message});
+        }
+
+        const result = await updateParking(req.params.id, req.body.name, req.body.stad, req.body.plaatsen); 
         res.send(result);
-    } catch(err){
+    } catch (err){
         res.status(500).json({error: err.message});
     }
 })

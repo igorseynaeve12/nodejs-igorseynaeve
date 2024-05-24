@@ -11,7 +11,7 @@ router.use(express.urlencoded({extended: true}));
 
 //10
 router.get('/', async (req, res) => {
-    res.status(200).json({message: 'Welkom op deze Api-pagina van Igor Seynaeve'});
+    res.status(200).json({message: 'Welkom op deze Api-pagina van Igor Seynaeve hier kan je parkings bekijken'});
 })
 
 
