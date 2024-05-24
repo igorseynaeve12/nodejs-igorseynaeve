@@ -70,22 +70,20 @@ router.get('/:id', async (req, res) => {
 
 //13
 router.put('/:id', async (req, res) => {
-    const schema = joi.object({
-        name: joi.string().required(),
-        postcode: joi.number().required(),
-    })
-    const {error} = schema.validate(req.body);
+    try{
+        const {error} = validate(req.body);
 
-    if(error) return res.status(400).send(error.details[0].message);
+        if(error) return res.status(400).send(error.details[0].message);
 
-    const stad = await steden.findByIdAndUpdate(req.params.id, {
+        const stad = await steden.findByIdAndUpdate(req.params.id, {
         name: req.body.name,
         postcode: req.body.postcode,
-    }, {
+        }, {
         new: true
     });
-
-
+    } catch(err){
+        res.status(500).json(err);
+    }
     try{
         res.status(200).json(stad);
     } catch(err){
@@ -102,6 +100,15 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({error: err.message});
     }
 })
+
+async function validate(req){
+    const schema = joi.object({
+        name: joi.string().required(),
+        postcode: joi.number().required(),
+    })
+    return schema.validate(req);
+
+}
 
 
 

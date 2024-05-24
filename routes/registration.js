@@ -20,42 +20,59 @@ async function getRegistrations() {
 
 
 async function deleteRegistrations(id){
-    const result = await Registration.findByIdAndDelete(id);
-    console.log(result);
+    try{
+        const result = await Registration.findByIdAndDelete(id);
+        console.log(result);
+    } catch(err){
+        console.error(err);
+        return {error: err.message};
+    }
+    
 }
 
 async function createRegistration(nummerplaat, parking){
-    const registratie = new Registration({
-        nummerplaat: nummerplaat,
-        parking: parking,
-        datum: Date.now()
-    });
-
-    return registratie;
+    try{
+        const registratie = new Registration({
+            nummerplaat: nummerplaat,
+            parking: parking,
+            datum: Date.now()
+        });
+        return registratie;
+    } catch(err){
+        console.error(err);
+        return {error: err.message};
+    }
 }
 
 async function updateRegistration(id, nummerplaat, parking){
-    const registratie = await Registration.findByIdAndUpdate(id, {
-        nummerplaat: nummerplaat,
-        parking: parking,
-        datum: Date.now()
-    });
+    try{
+        const registratie = await Registration.findByIdAndUpdate(id, {
+            nummerplaat: nummerplaat,
+            parking: parking,
+            datum: Date.now()
+        });
+    } catch(err){
+        console.error(err);
+        return {error: err.message};
+    }
+    
 }
 
 //15
 router.post('/', async (req, res) => {
-    const {error} = validate(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
-
-    const findByNummerplaat = await Registration.findOne({nummerplaat: req.body.nummerplaat});
-
-    if(findByNummerplaat){
-        return res.status(400).json({error: 'Registration already exists'});
-    }
-
-    const registratie = await createRegistration(req.body.nummerplaat, req.body.parking);
+    
 
     try{
+        const {error} = validate(req.body);
+        if(error) return res.status(400).send(error.details[0].message);
+
+        const findByNummerplaat = await Registration.findOne({nummerplaat: req.body.nummerplaat});
+
+        if(findByNummerplaat){
+            return res.status(400).json({error: 'Registration already exists'});
+        }
+
+        const registratie = await createRegistration(req.body.nummerplaat, req.body.parking);
         const result = await registratie.save();
         res.send(result);
     } catch(err){
