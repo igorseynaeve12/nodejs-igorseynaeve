@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const steden = require('../models/stadModel');
 const mongoose = require('mongoose');
+const auth = require('../middleware/auth');
+const isAdmin = require('../middleware/admin');
 const joi = require('joi');
 
 
@@ -38,7 +40,7 @@ router.get('/', async (req, res) => {
 
 
 //11
-router.post('/', async (req, res) => {
+router.post('/', auth , async (req, res) => {
     try{
         const schema = joi.object({
             name: joi.string().required(),
@@ -63,7 +65,7 @@ router.post('/', async (req, res) => {
 })
 
 //12
-router.get('/:id', async (req, res) => {
+router.get('/:id',async (req, res) => {
     try{
         const stad = await steden.findById(req.params.id);
         res.status(200).json(stad);
@@ -73,7 +75,7 @@ router.get('/:id', async (req, res) => {
 })
 
 //13
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth , async (req, res) => {
     try{
         const {error} = validate(req.body);
 
@@ -92,7 +94,7 @@ router.put('/:id', async (req, res) => {
 })
 
 //14
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', isAdmin, auth, async (req, res) => {
     try{
         const result = await deleteStad(req.params.id);
         res.send(result);

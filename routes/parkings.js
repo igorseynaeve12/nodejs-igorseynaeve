@@ -75,7 +75,7 @@ router.get('/:id', async (req, res) => {
 })
 
 //3
-router.post('/', async (req, res) => {
+router.post('/', auth ,async (req, res) => {
     try{
         const error = validate(req.body);
         if(error.error){
@@ -102,7 +102,7 @@ router.post('/', async (req, res) => {
 });
 
 //4
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth , async (req, res) => {
     try{
     
         const error = validate(req.body);

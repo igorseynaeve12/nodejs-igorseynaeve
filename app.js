@@ -5,7 +5,7 @@ const app = express();
 
 
 
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 
 const config = require('config');
 const helmet = require('helmet');
@@ -18,7 +18,6 @@ const index = require('./routes/index');
 const auth = require('./routes/auth');
 const registration = require('./routes/registration');
 
-dotenv.config();
 
 
 const fs = require('fs');
@@ -42,6 +41,7 @@ mongoose.connect('mongodb+srv://seynaeveigor:4G38DrHcHHU9oyJn@apiparking.hpmjz9e
 .catch(err => console.error('Kan niet verbinden met DB ...', err))
 
 console.log('Api beschikbaar op: ' + 'http://localhost:' + port)
+console.log(process.env.privateKey)
 
 
 app.listen(port, ()=> console.log('Listening on port ' + port ))

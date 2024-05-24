@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const {Registration} = require('../models/registrationModel');
 const joi = require('joi');
+const auth = require('../middleware/auth');
 
 router.use(express.json());
 router.use(express.urlencoded({extended: true}));
@@ -59,7 +60,7 @@ async function updateRegistration(id, nummerplaat, parking){
 }
 
 //15
-router.post('/', async (req, res) => {
+router.post('/', auth ,async (req, res) => {
     
 
     try{
@@ -103,7 +104,7 @@ router.delete('/:id', async (req, res) => {
 })
 
 //18
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth,async (req, res) => {
     try{
         const result = await updateRegistration(req.params.id, req.body.nummerplaat, req.body.parking);
         res.send(result);
