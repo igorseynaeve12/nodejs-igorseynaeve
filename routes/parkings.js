@@ -12,21 +12,31 @@ router.use(express.urlencoded({extended: true}));
 
 
 async function updateParking(id, name, stad, plaatsen){
-    const result = await parking.findByIdAndUpdate(
-        {_id: id},
-        {$set:{
-            name: name,
-            stad: stad,
-            plaatsen: plaatsen
+    try{
+        const result = await parking.findByIdAndUpdate(
+            {_id: id},
+            {$set:{
+                name: name,
+                stad: stad,
+                plaatsen: plaatsen
+            }
         }
+        )
+        console.log(result);
+    } catch(err){
+        console.error(err);
     }
-    )
-    console.log(result);
+    
 }
 
 async function deleteParking(id){
-    const result = await parking.findByIdAndDelete(id);
-    console.log(result);
+    try{
+        const result = await parking.findByIdAndDelete(id);
+        console.log(result);
+    } catch(err){
+        console.error(err);
+    }
+    
 }
 
 
@@ -66,15 +76,9 @@ router.get('/:id', async (req, res) => {
 
 //3
 router.post('/', async (req, res) => {
-    const schema = Joi.object({
-        name: Joi.string().required(),
-        stad: Joi.string().required(),
-        plaatsen: Joi.number().required()
-    })
-
     try{
-        const result = schema.validate(req.body);
-        if(result.error){
+        const error = validate(req.body);
+        if(error.error){
             return res.status(400).json({error: result.error.details[0].message});
         }
     
@@ -88,12 +92,8 @@ router.post('/', async (req, res) => {
             stad: req.body.stad,
             plaatsen: req.body.plaatsen
         })
-    } catch (err){
-        res.status(500).json({error: err.message});
-    }
-    
 
-    try{
+
         const result = await parkeer.save();
         res.send(result);
     } catch(err){
@@ -104,13 +104,8 @@ router.post('/', async (req, res) => {
 //4
 router.put('/:id', async (req, res) => {
     try{
-        const schema = Joi.object({
-            name: Joi.string().required(),
-            stad: Joi.string().required(),
-            plaatsen: Joi.number().required()
-        })
     
-        const error = schema.validate(req.body);
+        const error = validate(req.body);
         if(error.error){
             return res.status(400).json({error: result.error.details[0].message});
         }
@@ -141,5 +136,14 @@ router.get('/getAllParkingsByStad/:stadId', async (req, res) => {
         res.status(500).json({error: err.message});
     }
 })
+
+async function validate(req){
+    const schema = Joi.object({
+        name: Joi.string().required(),
+        stad: Joi.string().required(),
+        plaatsen: Joi.number().required()
+    })
+    return schema.validate(req);
+}
 
 module.exports = router;
