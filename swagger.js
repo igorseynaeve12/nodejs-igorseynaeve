@@ -9,7 +9,7 @@ const doc = {
 };
 
 const outputFile = './swagger-output.json';
-const routes = ['./routes/auth.js', './routes/index.js', './routes/parkings.js', './routes/registration.js', './routes/steden.js', './routes/users.js'];
+const routes = ['./src/routes/auth.js', './src/routes/index.js', './src/routes/parkings.js', './src/routes/registration.js', './src/routes/steden.js', './src/routes/users.js'];
 
 /* NOTE: If you are using the express Router, you must pass in the 'routes' only the 
 root file where the route starts, such as index.js, app.js, routes.js, etc ... */

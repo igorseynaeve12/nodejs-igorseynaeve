@@ -10,7 +10,24 @@ const jwt = require('jsonwebtoken');
 
 
 //9
-router.post('/', async (req, res) => {
+
+/**
+ * @api {post} /users/login Login a user
+ * @apiName LoginUser
+ * @apiGroup User
+ *
+ * @apiParam {String} email User's email.
+ * @apiParam {String} password User's password.
+ *
+ * @apiSuccess {String} x-auth-token JWT token for authentication.
+ * @apiSuccess {Object} user User information.
+ * @apiSuccess {String} user._id User's ID.
+ * @apiSuccess {String} user.name User's name.
+ * @apiSuccess {String} user.email User's email.
+ *
+ * @apiError {String} 400 Invalid email or password.
+ */
+router.post('/authoriseer', async (req, res) => {
 
 
     const {error} = validate(req.body);

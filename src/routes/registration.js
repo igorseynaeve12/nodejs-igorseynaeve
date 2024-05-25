@@ -60,7 +60,7 @@ async function updateRegistration(id, nummerplaat, parking){
 }
 
 //15
-router.post('/', auth ,async (req, res) => {
+router.post('/voegRegistratieToe', auth ,async (req, res) => {
     
 
     try{
@@ -84,7 +84,7 @@ router.post('/', auth ,async (req, res) => {
 })
 
 //16
-router.get('/', async (req, res) => {
+router.get('/getAlleRegistraties', async (req, res) => {
     try{
         res.status(200).json((await getRegistrations()).registratie);
     } catch (err){
@@ -94,7 +94,7 @@ router.get('/', async (req, res) => {
 
 
 //17
-router.delete('/:id', async (req, res) => {
+router.delete('/deleteRegistratieById/:id', async (req, res) => {
     try{
         const result = await deleteRegistrations(req.params.id);
         res.send(result);
@@ -104,7 +104,7 @@ router.delete('/:id', async (req, res) => {
 })
 
 //18
-router.put('/:id', auth,async (req, res) => {
+router.put('/updateRegistratieById/:id', auth,async (req, res) => {
     try{
         const result = await updateRegistration(req.params.id, req.body.nummerplaat, req.body.parking);
         res.send(result);

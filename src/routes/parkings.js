@@ -54,7 +54,7 @@ async function getParkings() {
 
 
 //1
-router.get('/', async (req, res) => {
+router.get('/getAlleParking', async (req, res) => {
     try{
         res.status(200).json((await getParkings()).parkings);
     } catch(err){
@@ -63,7 +63,7 @@ router.get('/', async (req, res) => {
 })
 
 //2
-router.get('/:id', async (req, res) => {
+router.get('/getParkingById/:id', async (req, res) => {
     try{
         const parkings = (await getParkings()).parkings;
         const parkingById = parkings.find(parking => parking._id.toString() === req.params.id);
@@ -75,7 +75,7 @@ router.get('/:id', async (req, res) => {
 })
 
 //3
-router.post('/', auth ,async (req, res) => {
+router.post('/voegParkingToe', auth ,async (req, res) => {
     try{
         const error = validate(req.body);
         if(error.error){
@@ -102,7 +102,7 @@ router.post('/', auth ,async (req, res) => {
 });
 
 //4
-router.put('/:id', auth , async (req, res) => {
+router.put('/updateParkingById/:id', auth , async (req, res) => {
     try{
     
         const error = validate(req.body);
@@ -118,7 +118,7 @@ router.put('/:id', auth , async (req, res) => {
 })
 
 //5
-router.delete('/:id', async (req, res) => {
+router.delete('/deleteParkingById/:id', async (req, res) => {
     try{
         const result = await deleteParking(req.params.id);
         res.send(result);

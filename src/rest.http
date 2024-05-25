@@ -3,11 +3,11 @@
 
 get {{base_url}}
 ###
-get {{base_url}}api/parkings
+get {{base_url}}api/parkings/getAlleParking
 ###
-get {{base_url}}api/parkings/664e09fce71633614b2fdb62
+get {{base_url}}api/parkings/getParkingById/664e09fce71633614b2fdb62
 ###
-post {{base_url}}api/parkings
+post {{base_url}}api/parkings/voegParkingToe
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ###
-put {{base_url}}api/parkings/664f5485b9d041425c7d3112
+put {{base_url}}api/parkings/updateParkingById/664f5485b9d041425c7d3112
 Content-Type: application/json
 
 {
@@ -28,20 +28,20 @@ Content-Type: application/json
 
 
 ###
-delete {{base_url}}api/parkings/664f5485b9d041425c7d3112
+delete {{base_url}}api/parkings/deleteParkingById/664f5485b9d041425c7d3112
 
 
 ###
 get {{base_url}}api/parkings/getAllParkingsByStad/664e090c2b7e121079a60cf3
 
 ###
-get {{base_url}}api/steden
+get {{base_url}}api/steden/getAlleSteden
 
 ###
-get {{base_url}}api/steden/664e097b2b7e121079a60cff
+get {{base_url}}api/steden/getStadById/664e097b2b7e121079a60cff
 
 ###
-post {{base_url}}api/steden
+post {{base_url}}api/steden/voegStadToe
 Content-Type: application/json
 
 {
@@ -50,7 +50,7 @@ Content-Type: application/json
 }
 
 ###
-put {{base_url}}api/steden/664f5637e5bf5d0522fc8aad
+put {{base_url}}api/steden/updateStadById/664f5637e5bf5d0522fc8aad
 Content-Type: application/json
 
 {
@@ -58,17 +58,17 @@ Content-Type: application/json
     "postcode": 108765
 }
 ###
-delete {{base_url}}api/steden/664f5637e5bf5d0522fc8aad
+delete {{base_url}}api/steden/deleteStadById/664f5637e5bf5d0522fc8aad
 
 ###
-get {{base_url}}api/registrations
+get {{base_url}}api/registrations/getAlleRegistraties
 
 ###
 
 get {{base_url}}api/registrations/getRegistrationByParkingId/664e09fce71633614b2fdb62
 
 ###
-post {{base_url}}api/registrations
+post {{base_url}}api/registrations/voegRegistratieToe
 Content-Type: application/json
 
 {
@@ -76,7 +76,7 @@ Content-Type: application/json
     "parking": "664e09fce71633614b2fdb62"
 }
 ###
-put {{base_url}}api/registrations/664f58f1e5bf5d0522fc8ab8
+put {{base_url}}api/registrations/updateRegistratieById/664f58f1e5bf5d0522fc8ab8
 Content-Type: application/json
 
 {
@@ -85,11 +85,11 @@ Content-Type: application/json
 }
 
 ###
-delete {{base_url}}api/registrations/664f58f1e5bf5d0522fc8ab8
+delete {{base_url}}api/registrations/deleteRegistratieById/664f58f1e5bf5d0522fc8ab8
 
 
 ###
-post {{base_url}}api/users
+post {{base_url}}api/users/voegGebruikerToe
 Content-Type: application/json
 
 {
@@ -100,7 +100,7 @@ Content-Type: application/json
 }
 
 ###
-post {{base_url}}api/auth
+post {{base_url}}api/auth/authoriseer
 Content-Type: application/json
 
 {
@@ -109,6 +109,6 @@ Content-Type: application/json
 }
 
 ###
-@auth-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjUxZGU4ZDkzM2I2N2MzZjlkN2QwMjQiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzE2NjQxNDg5LCJleHAiOjE3MTY2NDUwODl9.uzOIa8fPFyCqwyWggQNYtqz0QFuJ03haXjjk0G_tCwQ
+@auth-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjUxZGU4ZDkzM2I2N2MzZjlkN2QwMjQiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzE2NjY0OTkwLCJleHAiOjE3MTY2Njg1OTB9.d78Jqv6B2ulYKtCNz34dk12-2XP3DFi8YoU-bvApI9I
 get {{base_url}}api/users/me
 x-auth-token: {{auth-token}}

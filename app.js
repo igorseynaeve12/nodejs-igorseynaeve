@@ -11,12 +11,15 @@ const config = require('config');
 const helmet = require('helmet');
 const morgan = require('morgan');
 //routes
-const parking = require('./routes/parkings');
-const user = require('./routes/users');
-const steden = require('./routes/steden');
-const index = require('./routes/index');
-const auth = require('./routes/auth');
-const registration = require('./routes/registration');
+const parking = require('./src/routes/parkings');
+const user = require('./src/routes/users');
+const steden = require('./src/routes/steden');
+const index = require('./src/routes/index');
+const auth = require('./src/routes/auth');
+const registration = require('./src/routes/registration');
+
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger-output.json')
 
 
 
@@ -31,7 +34,7 @@ app.use('/api/users', user);
 app.use('/api/auth', auth);
 app.use('/api/steden', steden);
 app.use('/api/registrations', registration);
-
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 app.use(helmet());
 
 // Database

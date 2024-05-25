@@ -11,7 +11,9 @@
     "lodash": "^4.17.21",
     "mongoose": "^8.2.2",
     "morgan": "^1.10.0",
-    "parking": "^0.0.10"
+    "parking": "^0.0.10",
+    "swagger-ui": "^5.17.12",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
     "apidoc": "^1.2.0",

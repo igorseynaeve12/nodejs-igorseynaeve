@@ -30,7 +30,7 @@ async function getSteden() {
 }
 
 //10
-router.get('/', async (req, res) => {
+router.get('/getAlleSteden', async (req, res) => {
     try{
         res.status(200).json((await getSteden()).stad);
     } catch(err){
@@ -40,7 +40,7 @@ router.get('/', async (req, res) => {
 
 
 //11
-router.post('/', auth , async (req, res) => {
+router.post('/voegStadToe', auth , async (req, res) => {
     try{
         const schema = joi.object({
             name: joi.string().required(),
@@ -65,7 +65,7 @@ router.post('/', auth , async (req, res) => {
 })
 
 //12
-router.get('/:id',async (req, res) => {
+router.get('/getStadById/:id',async (req, res) => {
     try{
         const stad = await steden.findById(req.params.id);
         res.status(200).json(stad);
@@ -75,7 +75,7 @@ router.get('/:id',async (req, res) => {
 })
 
 //13
-router.put('/:id', auth , async (req, res) => {
+router.put('/updateStadById/:id', auth , async (req, res) => {
     try{
         const {error} = validate(req.body);
 
@@ -94,7 +94,7 @@ router.put('/:id', auth , async (req, res) => {
 })
 
 //14
-router.delete('/:id', [auth, isAdmin], async (req, res) => {
+router.delete('/deleteStadById/:id', [auth, isAdmin], async (req, res) => {
     try{
         const result = await deleteStad(req.params.id);
         res.send(result);

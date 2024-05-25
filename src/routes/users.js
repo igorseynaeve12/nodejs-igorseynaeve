@@ -12,7 +12,7 @@ router.use(express.urlencoded({extended: true}));
 
 
 //7
-router.post('/', async (req, res) => {
+router.post('/voegGebruikerToe', async (req, res) => {
 
 
     const {error} = validate(req.body);
