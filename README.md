@@ -20,14 +20,11 @@ Endpoint 2: alle parkings ophalen
 get http://localhost:4510/parkings
 
 code:
-/**
  * Retrieves all the steden from the database and sends them as a response.
- *
  * @param {Object} req - The request object.
  * @param {Object} res - The response object.
- *
  * @returns {void}
- */
+ 
 async (req, res) => {
     try{
         // Fetch all steden from the database using the getSteden function
