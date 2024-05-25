@@ -19,6 +19,6 @@
   },
   "scripts": {
     "swagger": "node ./swagger.js",
-    "start-gendoc": "apidoc -i ti-eind-assignment-2324-project-igorseynaeve12/ -o doc/"
+    "start-gendoc": "apidoc -i src/ -o doc/"
   }
 }
