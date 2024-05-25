@@ -14,9 +14,11 @@
     "parking": "^0.0.10"
   },
   "devDependencies": {
+    "apidoc": "^1.2.0",
     "swagger-autogen": "^2.23.7"
   },
   "scripts": {
-    "swagger": "node ./swagger.js"
+    "swagger": "node ./swagger.js",
+    "start-gendoc": "apidoc -i ti-eind-assignment-2324-project-igorseynaeve12/ -o doc/"
   }
 }

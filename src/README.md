@@ -24,19 +24,19 @@ code:
  * @param {Object} req - The request object.
  * @param {Object} res - The response object.
  * @returns {void}
-
-        async (req, res) => {
-            try{
+ 
+async (req, res) => {
+    try{
         // Fetch all steden from the database using the getSteden function
         const stedenData = await getSteden();
 
         // Send the fetched steden as a JSON response with status 200
         res.status(200).json(stedenData.stad);
-        }   catch(err){
+    } catch(err){
         // If an error occurs during the process, send the error as a JSON response with status 500
         res.status(500).json(err);
-            }
-        }
+    }
+}
 
 output: [
   {

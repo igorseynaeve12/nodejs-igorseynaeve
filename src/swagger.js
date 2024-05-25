@@ -5,7 +5,7 @@ const doc = {
     title: 'My Parking API',
     description: 'Dit is een API voor het vak Node.js'
   },
-  host: 'localhost:4500'
+  host: 'localhost:4510'
 };
 
 const outputFile = './swagger-output.json';
