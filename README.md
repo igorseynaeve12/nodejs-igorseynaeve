@@ -17,7 +17,29 @@ output: {
 
 Endpoint 2: alle parkings ophalen
 
-get [baseurl]+[parking]
+get http://localhost:4510/parkings
+
+code:
+/**
+ * Retrieves all the steden from the database and sends them as a response.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ *
+ * @returns {void}
+ */
+async (req, res) => {
+    try{
+        // Fetch all steden from the database using the getSteden function
+        const stedenData = await getSteden();
+
+        // Send the fetched steden as a JSON response with status 200
+        res.status(200).json(stedenData.stad);
+    } catch(err){
+        // If an error occurs during the process, send the error as a JSON response with status 500
+        res.status(500).json(err);
+    }
+}
 
 output: [
   {
@@ -101,7 +123,7 @@ output: [
 
 Endpoint 3: alle parkings ophalen bij ID
 
-get [baseurl]api/parkings/664f6cdbe3c665b80eb5ff76
+get http://localhost:4510/api/parkings/664f6cdbe3c665b80eb5ff76
 
 output: {
   "_id": "664f6cdbe3c665b80eb5ff76",
