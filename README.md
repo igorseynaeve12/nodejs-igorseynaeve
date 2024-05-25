@@ -2,7 +2,7 @@
 
 
 [baseurl]:http://localhost:4510/
-
+[parking]:api/parkings
 
 
 # Documentatie API
@@ -17,7 +17,7 @@ output: {
 
 Endpoint 2: alle parkings ophalen
 
-get [baseurl/api/parkings]
+get [baseurl]+[parking]
 
 output: [
   {
