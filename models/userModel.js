@@ -39,8 +39,6 @@ UserSchema.methods.generateAuthToken = function() {
     const token = jwt.sign({_id: this._id, isAdmin: this.isAdmin}, jwtPrivateKey, {expiresIn: '1h'});
     return token;
 }
-
-
 function validateUser(user) {
     const schema = Joi.object({
         name: Joi.string().min(3).max(50).required(),

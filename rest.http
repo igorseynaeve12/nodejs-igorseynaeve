@@ -1,10 +1,13 @@
-get http://localhost:4500/
+@base_url= http://localhost:4510/
 ###
-get http://localhost:4500/api/parkings
+
+get {{base_url}}
 ###
-get http://localhost:4500/api/parkings/664e09fce71633614b2fdb62
+get {{base_url}}api/parkings
 ###
-post http://localhost:4500/api/parkings
+get {{base_url}}api/parkings/664e09fce71633614b2fdb62
+###
+post {{base_url}}api/parkings
 Content-Type: application/json
 
 {
@@ -14,7 +17,7 @@ Content-Type: application/json
 }
 
 ###
-put http://localhost:4500/api/parkings/664f5485b9d041425c7d3112
+put {{base_url}}api/parkings/664f5485b9d041425c7d3112
 Content-Type: application/json
 
 {
@@ -25,20 +28,20 @@ Content-Type: application/json
 
 
 ###
-delete http://localhost:4500/api/parkings/664f5485b9d041425c7d3112
+delete {{base_url}}api/parkings/664f5485b9d041425c7d3112
 
 
 ###
-get http://localhost:4500/api/parkings/getAllParkingsByStad/664e090c2b7e121079a60cf3
+get {{base_url}}api/parkings/getAllParkingsByStad/664e090c2b7e121079a60cf3
 
 ###
-get http://localhost:4500/api/steden
+get {{base_url}}api/steden
 
 ###
-get http://localhost:4500/api/steden/664e097b2b7e121079a60cff
+get {{base_url}}api/steden/664e097b2b7e121079a60cff
 
 ###
-post http://localhost:4500/api/steden
+post {{base_url}}api/steden
 Content-Type: application/json
 
 {
@@ -47,7 +50,7 @@ Content-Type: application/json
 }
 
 ###
-put http://localhost:4500/api/steden/664f5637e5bf5d0522fc8aad
+put {{base_url}}api/steden/664f5637e5bf5d0522fc8aad
 Content-Type: application/json
 
 {
@@ -55,17 +58,17 @@ Content-Type: application/json
     "postcode": 108765
 }
 ###
-delete http://localhost:4500/api/steden/664f5637e5bf5d0522fc8aad
+delete {{base_url}}api/steden/664f5637e5bf5d0522fc8aad
 
 ###
-get http://localhost:4500/api/registrations
+get {{base_url}}api/registrations
 
 ###
 
-get http://localhost:4500/api/registrations/getRegistrationByParkingId/664e09fce71633614b2fdb62
+get {{base_url}}api/registrations/getRegistrationByParkingId/664e09fce71633614b2fdb62
 
 ###
-post http://localhost:4500/api/registrations
+post {{base_url}}api/registrations
 Content-Type: application/json
 
 {
@@ -73,7 +76,7 @@ Content-Type: application/json
     "parking": "664e09fce71633614b2fdb62"
 }
 ###
-put http://localhost:4500/api/registrations/664f58f1e5bf5d0522fc8ab8
+put {{base_url}}api/registrations/664f58f1e5bf5d0522fc8ab8
 Content-Type: application/json
 
 {
@@ -82,5 +85,30 @@ Content-Type: application/json
 }
 
 ###
-delete http://localhost:4500/api/registrations/664f58f1e5bf5d0522fc8ab8
+delete {{base_url}}api/registrations/664f58f1e5bf5d0522fc8ab8
 
+
+###
+post {{base_url}}api/users
+Content-Type: application/json
+
+{
+    "email": "igorseynaeve@outlook.be",
+    "name": "Igor Seynaeve 2",
+    "password": "Azerty-123",
+    "isAdmin": false
+}
+
+###
+post {{base_url}}api/auth
+Content-Type: application/json
+
+{
+    "email": "igorseynaeve@outlook.be",
+    "password": "Azerty-123"
+}
+
+###
+@auth-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjUxZGU4ZDkzM2I2N2MzZjlkN2QwMjQiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzE2NjQxNDg5LCJleHAiOjE3MTY2NDUwODl9.uzOIa8fPFyCqwyWggQNYtqz0QFuJ03haXjjk0G_tCwQ
+get {{base_url}}api/users/me
+x-auth-token: {{auth-token}}
