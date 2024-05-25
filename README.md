@@ -17,7 +17,7 @@ output: {
 
 Endpoint 2: alle parkings ophalen
 
-get http://localhost:4510/api/parkings
+get [baseurl]api/parkings
 
 output: [
   {
@@ -101,7 +101,7 @@ output: [
 
 Endpoint 3: alle parkings ophalen bij ID
 
-get http://localhost:4510/api/parkings/664f6cdbe3c665b80eb5ff76
+get [baseurl]api/parkings/664f6cdbe3c665b80eb5ff76
 
 output: {
   "_id": "664f6cdbe3c665b80eb5ff76",
