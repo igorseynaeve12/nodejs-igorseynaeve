@@ -17,7 +17,7 @@ output: {
 
 Endpoint 2: alle parkings ophalen
 
-get [baseurl]api/parkings
+get [baseurl/api/parkings]
 
 output: [
   {
