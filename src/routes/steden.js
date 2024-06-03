@@ -94,7 +94,7 @@ router.put('/updateStadById/:id', auth , async (req, res) => {
 })
 
 //14
-router.delete('/deleteStadById/:id', [auth, isAdmin], async (req, res) => {
+router.delete('/deleteStadById/:id', auth, isAdmin, async (req, res) => {
     try{
         const result = await deleteStad(req.params.id);
         res.send(result);

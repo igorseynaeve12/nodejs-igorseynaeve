@@ -4,6 +4,7 @@ const parking = require('../models/parkingModel');
 const mongoose = require('mongoose');
 const auth = require('../middleware/auth');
 const Joi = require('joi');
+const isAdmin = require('../middleware/admin');
 
 router.use(express.json());
 router.use(express.urlencoded({extended: true}));
@@ -118,7 +119,7 @@ router.put('/updateParkingById/:id', auth , async (req, res) => {
 })
 
 //5
-router.delete('/deleteParkingById/:id', async (req, res) => {
+router.delete('/deleteParkingById/:id', auth, isAdmin,async (req, res) => {
     try{
         const result = await deleteParking(req.params.id);
         res.send(result);

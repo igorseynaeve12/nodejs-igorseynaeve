@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const {Registration} = require('../models/registrationModel');
 const joi = require('joi');
 const auth = require('../middleware/auth');
+const isAdmin = require('../middleware/admin');
 
 router.use(express.json());
 router.use(express.urlencoded({extended: true}));
@@ -94,7 +95,7 @@ router.get('/getAlleRegistraties', async (req, res) => {
 
 
 //17
-router.delete('/deleteRegistratieById/:id', async (req, res) => {
+router.delete('/deleteRegistratieById/:id', auth, isAdmin, async (req, res) => {
     try{
         const result = await deleteRegistrations(req.params.id);
         res.send(result);
